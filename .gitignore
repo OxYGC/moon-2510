@@ -1,0 +1,185 @@
+### ========================= global & IDE =========================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.VolumeIcon.icns
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.stackdump
+
+# Editor Backups & Temp
+*~
+.*.sw?
+*.bak
+*.orig
+*.rej
+.nfs.*
+
+### ========================= IDE: JetBrains (IntelliJ IDEA) =========================
+
+# User-specific
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/usage.statistics.xml
+.idea/dictionaries
+.idea/shelf
+
+# Sensitive
+.idea/dataSources/
+.idea/dataSources.ids
+.idea/dataSources.local.xml
+.idea/sqlDataSources.xml
+.idea/dynamic.xml
+.idea/uiDesigner.xml
+.idea/dbnavigator.xml
+.idea/caches/build_file_checksums.ser
+
+# Generated
+.idea/contentModel.xml
+
+# Project files (safe to ignore if using auto-import)
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/gradle.xml
+.idea/libraries/
+.idea/jarRepositories.xml
+.idea/modules.xml
+.idea/artifacts/
+
+# Caches & Output
+.idea/httpRequests/
+out/
+gen/
+
+# Project descriptor files (keep if needed for build config)
+ .idea/*.iml
+ *.iml
+ *.ipr
+ *.iws
+
+
+
+### ========================= IDE: Eclipse / STS / VSCode =========================
+
+# Eclipse
+.metadata/
+bin/
+tmp/
+*.tmp
+.settings/
+.loadpath
+.externalToolBuilders/
+*.launch
+.recommenders/
+.apt_generated/
+.apt_generated_test/
+
+# STS
+.springBeans
+.sts4-cache
+
+# VSCode
+.vscode/
+
+### ========================= Java & Maven/Gradle =========================
+
+# Compiled
+*.class
+
+# Packages
+*.jar
+*.war
+*.ear
+*.nar
+*.zip
+*.tar.gz
+*.rar
+
+# Logs
+*.log
+hs_err_pid*
+
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Gradle (if not using auto-import, uncomment below)
+# .gradle/
+# build/
+# !**/src/main/**/build/
+# !**/src/test/**/build/
+
+### ========================= Go =========================
+
+# Binaries
+*.exe
+*.dll
+*.so
+*.dylib
+*.o
+*.a
+a.out
+
+# Test & Coverage
+*.test
+*.out
+coverage.*
+*.coverprofile
+profile.cov
+
+# Go Work
+go.work
+go.work.sum
+
+# Env
+.env
+
+### ========================= 其他常见忽略 =========================
+
+# BlueJ
+*.ctxt
+
+# J2ME
+.mtj.tmp/
+
+# Crash logs
+hs_err_pid*
+
+# NFS temp
+.nfs.*
+
+# Core dumps
+core
+
+# Test binaries
+demangle.test
+
+# XML configs (specific to your project)
+vsc.xml
+HELP.md
