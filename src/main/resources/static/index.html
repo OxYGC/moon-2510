@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>🌕 中秋许愿池</title>
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            color: white;
+            font-family: "Microsoft YaHei", sans-serif;
+            overflow: hidden;
+            height: 100vh;
+        }
+        #moon {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #fff 60%, #ccc 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(255, 255, 200, 0.6);
+            z-index: 10;
+        }
+        #input-area {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+        }
+        input, button {
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 20px;
+        }
+        input {
+            width: 300px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            outline: none;
+        }
+        button {
+            background: #ff6b6b;
+            color: white;
+            cursor: pointer;
+        }
+        .wish {
+            position: absolute;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            text-shadow: 0 0 8px rgba(255,255,255,0.8);
+        }
+    </style>
+</head>
+<body>
+<div id="moon"></div>
+<div id="input-area">
+    <input type="text" id="wishInput" placeholder="写下你的中秋愿望..." maxlength="50">
+    <button onclick="submitWish()">许愿</button>
+</div>
+
+<script>
+    const wishesContainer = document.body;
+    const ws = new WebSocket('ws://localhost:8080/ws/wishes');
+
+    // 提交愿望
+    async function submitWish() {
+        const input = document.getElementById('wishInput');
+        const content = input.value.trim();
+        if (!content) return;
+
+        const res = await fetch('/api/wish', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ content })
+        });
+        if (res.ok) input.value = '';
+    }
+
+    // 接收新愿望（WebSocket）
+    ws.onmessage = (event) => {
+        const wish = JSON.parse(event.data);
+        createFloatingWish(`${wish.content} —— ${wish.blessing}`);
+    };
+
+
+
+    // 创建飘动愿望
+    function createFloatingWish(text) {
+        const el = document.createElement('div');
+        el.className = 'wish';
+        el.innerText = `✨ ${text}`;
+        el.style.left = (Math.random() * 80 + 10) + 'vw';
+        el.style.color = `hsl(${Math.random() * 360}, 80%, 80%)`;
+        el.style.fontSize = (14 + Math.random() * 6) + 'px'; // 字体大小随机，更自然
+        document.body.appendChild(el);
+
+        // 🌕 关键：延长动画时间（15~25秒）
+        const duration = 15000 + Math.random() * 10000; // 15 到 25 秒
+
+        // 更柔和的缓动曲线
+        el.animate([
+            { top: '100vh', opacity: 0 },
+            { top: '80vh', opacity: 0.8, offset: 0.05 },   // 缓慢淡入
+            { top: '40vh', opacity: 1, offset: 0.3 },       // 中段最亮
+            { top: '10vh', opacity: 0.9, offset: 0.7 },
+            { top: '-15vh', opacity: 0 }                    // 淡出消失
+        ], {
+            duration: duration,
+            easing: 'cubic-bezier(0.2, 0.8, 0.3, 1)'
+        });
+
+        // 延迟移除元素（确保动画完成）
+        setTimeout(() => {
+            if (el.parentNode) el.remove();
+        }, duration + 500);
+    }
+
+
+
+
+    // 回车提交
+    document.getElementById('wishInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') submitWish();
+    });
+</script>
+</body>
+</html>
